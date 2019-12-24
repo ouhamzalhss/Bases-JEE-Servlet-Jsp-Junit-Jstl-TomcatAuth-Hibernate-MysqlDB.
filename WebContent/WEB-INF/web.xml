@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+  <display-name>Cata_jee_hiber</display-name>
+  
+  
+  
+  <!--   Deploiement des servlet -->
+  <servlet>
+     <servlet-name>cs</servlet-name>
+     <servlet-class>web.ControlleurCatalogServlet</servlet-class>
+	     <!--   Upload des fichiers -->
+	    <multipart-config>
+	    	<location>/Users/ouhamza</location>
+	    	<max-file-size>10485760</max-file-size> <!-- 10 Mo -->
+	    	<max-request-size>52428800</max-request-size><!-- 5 * 10 Mo -->
+	    	<file-size-threshold>1048576</file-size-threshold> <!-- 1 Mo -->
+	    </multipart-config>
+	    <!--   Upload des fichiers -->
+  </servlet>
+  <servlet-mapping>
+  		<servlet-name>cs</servlet-name>
+  		<url-pattern>*.php</url-pattern>
+  </servlet-mapping>
+  
+  
+    <servlet>
+    	 <servlet-name>cc</servlet-name>
+    	 <servlet-class>web.ControlleurCalculServlet</servlet-class>
+  	</servlet>
+ 	 <servlet-mapping>
+  		<servlet-name>cc</servlet-name>
+  		<url-pattern>*.do</url-pattern>
+  	</servlet-mapping>
+  <!--  Deploiement des servlet  -->
+  
+ 
+  
+  <!--  charger les taglibs  -->
+  <jsp-config>
+	  <jsp-property-group>
+		  <url-pattern>*.jsp</url-pattern>
+		  <include-prelude>/taglibs.jsp</include-prelude>
+	  </jsp-property-group>
+  </jsp-config>
+  <!--  charger les taglibs  -->
+  
+  
+  
+  
+  
+<!--   Authentification tomcat -->
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>cs</web-resource-name>
+			<url-pattern>*.php</url-pattern>
+			<http-method>GET</http-method>
+			<http-method>POST</http-method>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>manager</role-name>
+		</auth-constraint>
+	</security-constraint>
+	
+		<security-constraint>
+			<web-resource-collection>
+				<web-resource-name>cc</web-resource-name>
+				<url-pattern>*.do</url-pattern>
+				<http-method>GET</http-method>
+				<http-method>POST</http-method>
+			</web-resource-collection>
+			<auth-constraint>
+				<role-name>manager</role-name>
+			</auth-constraint>
+		</security-constraint>
+	
+	
+
+	<login-config>
+		<auth-method>FORM</auth-method>
+		<realm-name>Authentification</realm-name>
+		<form-login-config>
+				<form-login-page>/login.html</form-login-page>
+				<form-error-page>/login.html</form-error-page>
+		</form-login-config>
+	</login-config>
+  <!--   Authentification tomcat -->
+  
+
+  
+  
+  
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  
+  
+</web-app>
